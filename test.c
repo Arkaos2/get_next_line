@@ -6,7 +6,7 @@
 /*   By: saibelab <saibelab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 13:15:49 by saibelab          #+#    #+#             */
-/*   Updated: 2025/05/16 14:37:03 by saibelab         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:35:11 by saibelab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,12 @@ char *append(char *stock, char *buf)
 
 int find_newline(char *str)
 {
-	int i = 0;
+	if (!str)
+		return -1;
 
+	int i;
+
+	i = 0;
 	while(str[i])
 	{
 		if (str[i] == '\n')
@@ -83,8 +87,8 @@ int find_newline(char *str)
 }
 char	*ft_strncpy(char *dest,  char *src, unsigned int n)
 {
-		unsigned int i;
-		i = 0;
+	unsigned int i;
+	i = 0;
 	while (i < n && src[i] != '\0')
 	{
 		dest[i] = src[i];
@@ -100,8 +104,11 @@ char	*ft_strncpy(char *dest,  char *src, unsigned int n)
 
 char *extract_line(char *stock)
 {
-	char *new = NULL;
-	int i = 0;
+	char *new;
+	int i;
+
+	new = NULL;
+	i = 0;
 	if (!stock)
 		return NULL;
 	while (stock[i] && stock[i] != '\n')
@@ -117,9 +124,12 @@ char *extract_line(char *stock)
 }
 char *remove_line(char *stock)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 	char *new_stock;
+
+	i = 0;
+	j = 0;
 	while (stock[i] && stock[i] != '\n')
 		i++;
 	if (!stock[i])
@@ -142,10 +152,13 @@ char *remove_line(char *stock)
 char *get_next_line(int fd)
 {
 	static char *stock;
-	char buf[BUFFER_SIZE + 1];
+	char *buf;
 	ssize_t bytes;
 	char *line;
 
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return NULL;
 	if (!stock)
 	{
 		stock = malloc(1);
@@ -161,8 +174,12 @@ char *get_next_line(int fd)
 		buf[bytes] = '\0';
 		stock = append(stock, buf);
 		if (!stock)
+		{
+			free(buf);
 			return (NULL);
+		}
 	}
+	free(buf);
 	if (!stock || !*stock)
 		{
 			free(stock);
