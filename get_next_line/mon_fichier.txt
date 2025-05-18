@@ -1,0 +1,9 @@
+|     ^~~~
+In file included from get_next_line.h:17,
+                 from get_next_line.c:13,
+                 from get_next_line.h:17,
+                 from get_next_line.c:13,
+                 from get_next_line.h:17,
+                 from get_next_line.c:13,
+                 from get_next_line.h:17,
+                 from get_next_line.c:13,
