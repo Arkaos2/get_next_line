@@ -39,6 +39,7 @@ char	*append(char *stock, char *buf)
 	char	*new;
 	int	len_stock;
 
+	len_stock = 0;
 	if (!buf)
 		return (NULL);
 	if (stock)
