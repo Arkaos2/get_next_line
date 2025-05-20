@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saibelab <saibelab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 15:24:58 by saibelab          #+#    #+#             */
+/*   Updated: 2025/05/20 15:24:58 by saibelab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"get_next_line.h"
 
 int	ft_strlen(char *s)
@@ -9,6 +21,7 @@ int	ft_strlen(char *s)
 		len++;
 	return (len);
 }
+
 char	*create_new(char *stock, char *new, char *buf)
 {
 	int	i;
@@ -37,7 +50,7 @@ char	*create_new(char *stock, char *new, char *buf)
 char	*append(char *stock, char *buf)
 {
 	char	*new;
-	int	len_stock;
+	int		len_stock;
 
 	len_stock = 0;
 	if (!buf)
@@ -53,20 +66,21 @@ char	*append(char *stock, char *buf)
 
 int	find_newline(char *str)
 {
-	if (!str)
-		return (-1);
 	int	i;
 
+	if (!str)
+		return (-1);
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '\n')
-			return(i);
+			return (i);
 		i++;
 	}
 	return (-1);
 }
-char	*ft_strncpy(char *dest,  char *src, unsigned int n)
+
+char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
 	unsigned int	i;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saibelab <saibelab@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 15:25:04 by saibelab          #+#    #+#             */
+/*   Updated: 2025/05/20 15:25:04 by saibelab         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"get_next_line.h"
 
 char	*extract_line(char *stock)
@@ -20,6 +32,7 @@ char	*extract_line(char *stock)
 	new[i] = '\0';
 	return (new);
 }
+
 char	*remove_line(char *stock)
 {
 	int		i;
@@ -54,12 +67,12 @@ char	*read_to_stock(int fd, char *stock)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
-		return NULL;
+		return (NULL);
 	while (find_newline(stock) == -1)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes <= 0)
-			break;
+			break ;
 		buf[bytes] = '\0';
 		stock = append(stock, buf);
 		if (!stock)
@@ -76,6 +89,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stock;
 	char		*line;
+
 	if (!stock)
 	{
 		stock = malloc(1);
