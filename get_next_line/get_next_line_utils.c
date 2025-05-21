@@ -17,6 +17,8 @@ int	ft_strlen(char *s)
 	int	len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (*s++)
 		len++;
 	return (len);
@@ -55,8 +57,7 @@ char	*append(char *stock, char *buf)
 	len_stock = 0;
 	if (!buf)
 		return (NULL);
-	if (stock)
-		len_stock = ft_strlen(stock);
+	len_stock = ft_strlen(stock);
 	new = malloc(sizeof(char) * (ft_strlen(buf) + len_stock + 1));
 	if (!new)
 		return (NULL);

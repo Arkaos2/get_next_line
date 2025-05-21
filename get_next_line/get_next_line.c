@@ -39,6 +39,8 @@ char	*remove_line(char *stock)
 	int		j;
 	char	*new_stock;
 
+	if (!stock)
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (stock[i] && stock[i] != '\n')
@@ -71,19 +73,19 @@ char	*read_to_stock(int fd, char *stock)
 	while (find_newline(stock) == -1)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
-		if (bytes <= 0)
+		if (bytes < 0)
+			return (free(buf), NULL);
+		if (bytes == 0)
 			break ;
 		buf[bytes] = '\0';
 		stock = append(stock, buf);
 		if (!stock)
-		{
-			free (buf);
-			return (NULL);
-		}
+			return (free(buf), NULL);
 	}
-	free (buf);
+	free(buf);
 	return (stock);
 }
+
 
 char	*get_next_line(int fd)
 {
