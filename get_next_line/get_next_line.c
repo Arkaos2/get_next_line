@@ -19,7 +19,7 @@ char	*extract_line(char *stock)
 
 	new = NULL;
 	i = 0;
-	if (!stock)
+	if (!stock || stock[0] == '\0')
 		return (NULL);
 	while (stock[i] && stock[i] != '\n')
 		i++;
@@ -39,7 +39,7 @@ char	*remove_line(char *stock)
 	int		j;
 	char	*new_stock;
 
-	if (!stock)
+	if (!stock || stock[0] == '\0')
 		return (NULL);
 	i = 0;
 	j = 0;
@@ -74,7 +74,11 @@ char	*read_to_stock(int fd, char *stock)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
-			return (free(buf), NULL);
+		{
+			free(buf);
+			free(stock);
+			return (NULL);
+		}
 		if (bytes == 0)
 			break ;
 		buf[bytes] = '\0';
@@ -86,27 +90,30 @@ char	*read_to_stock(int fd, char *stock)
 	return (stock);
 }
 
-
 char	*get_next_line(int fd)
 {
-	static char	*stock;
+	static char	*stock[1024];
 	char		*line;
 
-	if (!stock)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
+		return (NULL);
+	if (!stock[fd])
 	{
-		stock = malloc(1);
-		if (!stock)
+		stock[fd] = malloc(1);
+		if (!stock[fd])
 			return (NULL);
-		stock[0] = '\0';
+		stock[fd][0] = '\0';
 	}
-	stock = read_to_stock(fd, stock);
-	if (!stock || !*stock)
+	stock[fd] = read_to_stock(fd, stock[fd]);
+	if (!stock[fd])
+		return (NULL);
+	if (!*stock[fd])
 	{
-		free(stock);
-		stock = NULL;
+		free(stock[fd]);
+		stock[fd] = NULL;
 		return (NULL);
 	}
-	line = extract_line(stock);
-	stock = remove_line(stock);
+	line = extract_line(stock[fd]);
+	stock[fd] = remove_line(stock[fd]);
 	return (line);
 }
