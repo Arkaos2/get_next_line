@@ -76,7 +76,8 @@ char	*read_to_stock(int fd, char *stock)
 		if (bytes < 0)
 		{
 			free(buf);
-			free(stock);
+			if (stock)
+				free(stock);
 			return (NULL);
 		}
 		if (bytes == 0)

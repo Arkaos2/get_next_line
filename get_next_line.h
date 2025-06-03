@@ -29,7 +29,7 @@ char	*remove_line(char *stock);
 int		ft_strlen(char *s);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 char	*append(char *stock, char *buf);
-char	*create_new(char *stock, char *new, char *buf);
+char	*create_new_stock(char *stock, char *new_stock, char *buf);
 int		find_newline(char *str);
 
 #endif

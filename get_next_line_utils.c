@@ -24,7 +24,7 @@ int	ft_strlen(char *s)
 	return (len);
 }
 
-char	*create_new(char *stock, char *new, char *buf)
+char	*create_new_stock(char *stock, char *new_stock, char *buf)
 {
 	int	i;
 	int	j;
@@ -35,34 +35,36 @@ char	*create_new(char *stock, char *new, char *buf)
 	{
 		while (stock[i] != '\0')
 		{
-			new[i] = stock[i];
+			new_stock[i] = stock[i];
 			i++;
 		}
 	}
 	while (buf[j] != '\0')
 	{
-		new[i + j] = buf[j];
+		new_stock[i + j] = buf[j];
 		j++;
 	}
-	new[i + j] = '\0';
+	new_stock[i + j] = '\0';
 	free (stock);
-	return (new);
+	return (new_stock);
 }
 
 char	*append(char *stock, char *buf)
 {
-	char	*new;
+	char	*new_stock;
 	int		len_stock;
 
 	len_stock = 0;
 	if (!buf)
 		return (NULL);
 	len_stock = ft_strlen(stock);
-	new = malloc(sizeof(char) * (ft_strlen(buf) + len_stock + 1));
-	if (!new)
+	new_stock = malloc(sizeof(char) * (ft_strlen(buf) + len_stock + 1));
+	if (!new_stock)
 		return (NULL);
-	new = create_new(stock, new, buf);
-	return (new);
+	new_stock = create_new_stock(stock, new_stock, buf);
+	if (!new_stock)
+		return (NULL);
+	return (new_stock);
 }
 
 int	find_newline(char *str)
